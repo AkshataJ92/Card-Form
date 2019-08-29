@@ -9,6 +9,9 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 })
 export class CardComponent implements OnInit {
 
+
+  details:FormGroup;
+  callerdetails:FormGroup;
   general: FormGroup;
   address: FormGroup;
   contact: FormGroup;
@@ -18,6 +21,18 @@ export class CardComponent implements OnInit {
   constructor(private modalService: NgbModal, private fb: FormBuilder) { }
 
   ngOnInit() {
+
+    this.details=this.fb.group({
+      patientname:new FormControl(null),
+      patientDOB:new FormControl(null),
+      phone:new FormControl(null),
+      email:new FormControl(null)
+    });
+
+    this.callerdetails=this.fb.group({
+      callername:new FormControl(null),
+      phoneno:new FormControl(null)
+    });
 
     this.general=this.fb.group({
       firstname:new FormControl(null),

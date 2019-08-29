@@ -1,5 +1,81 @@
 <!-- <button (onclick)=openEdit(content, i)>Click me</button> -->
-<p class='btn btn-warning' (click)=openEdit(content,i)>Edit</p>
+<!-- <p class='btn btn-warning' (click)=openEdit(content,i)>Edit</p> -->
+
+
+<div class="modal-body">
+
+  <div class="row">
+
+    <div class="col-sm-10">
+      <div class="card text-white bg-secondary mb-3">
+        <div class="card-header">Enter Patient Informartion</div>
+        <div class="card-body">
+          <form [formGroup]="details">
+            <div class="form-group row">
+
+              <div class="form-group col-md-2">
+                <label>Patient Name</label>
+                <input  formControlName="patientname" type="text" class="form-control">
+              </div>
+
+              <div class="form-group col-md-2">
+                <label>Patient DOB</label>
+                <input formControlName="patientDOB" type="text" class="form-control">
+              </div>
+
+              <div class="form-group col-md-2">
+                <label>Phone no.</label>
+                <input formControlName="phone" type="text" class="form-control">
+              </div>
+
+              <div class="form-group col-md-2">
+                <label>Email</label>
+                <input formControlName="email" type="text" class="form-control">
+              </div>
+                <button type="submit" class="btn btn-success" (click)=openEdit(content,i) >continue</button>
+          </div>
+          </form>
+        </div>
+
+        <p>Caller Details</p>
+        <hr>
+        <div class="card-body">
+            <form [formGroup]="callerdetails">
+              <div class="form-group row">
+
+                <div class="form-group col-md-2">
+                  <label>Name</label>
+                  <input  formControlName="callername" type="text" class="form-control" placeholder="Caller Name">
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Phone</label>
+                  <input formControlName="phoneno" type="text" class="form-control" placeholder="Phone no.">
+                </div>
+
+                <div class="form-group col-md-2">
+                  <label>Relationship to Patient</label>
+                  <mat-form-field>
+                      <!-- <mat-label>Select</mat-label> -->
+                      <mat-select >
+                        <mat-option>Select</mat-option>
+                        <mat-option value="option1">Child</mat-option>
+                        <mat-option value="option2">Parent</mat-option>
+                        <mat-option value="option3">Self</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+                </div>
+                <mat-checkbox>Call patient to book Appointments</mat-checkbox>
+
+                  <!-- <button type="submit" class="btn btn-success">Finish</button> -->
+            </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+
 
 <ng-template #content let-modal>
   <!-- <div class="model-content" style="width:max-content"> -->
