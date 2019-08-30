@@ -1,82 +1,113 @@
-<!-- <button (onclick)=openEdit(content, i)>Click me</button> -->
-<!-- <p class='btn btn-warning' (click)=openEdit(content,i)>Edit</p> -->
+<!-- 1st registration form -->
+<div>
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Demographics">
 
 
-<div class="modal-body">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-10">
+          <div class="card text-white bg-secondary mb-3">
+            <div class="card-header">Enter Patient Informartion</div>
+            <div class="card-body">
+              <form [formGroup]="details">
+                <div class="form-group row">
 
-  <div class="row">
+                  <div class="form-group col-md-2">
+                    <label>Patient Name</label>
+                    <input  formControlName="patientname" type="text" class="form-control" placeholder="Patient name" >
+                  </div>
 
-    <div class="col-sm-10">
-      <div class="card text-white bg-secondary mb-3">
-        <div class="card-header">Enter Patient Informartion</div>
-        <div class="card-body">
-          <form [formGroup]="details">
-            <div class="form-group row">
+                  <div class="form-group col-md-2">
+                    <label>Patient DOB</label>
+                    <input type="date" name="bday">
+                  </div>
 
-              <div class="form-group col-md-2">
-                <label>Patient Name</label>
-                <input  formControlName="patientname" type="text" class="form-control">
-              </div>
+                  <div class="form-group col-md-2">
+                    <label>Phone</label>
+                    <input formControlName="phone" type="text" class="form-control">
+                  </div>
 
-              <div class="form-group col-md-2">
-                <label>Patient DOB</label>
-                <input formControlName="patientDOB" type="text" class="form-control">
-              </div>
+                  <div class="form-group col-md-2">
+                    <label>Email</label>
+                    <input formControlName="email" type="text" class="form-control" placeholder="Email">
+                  </div>
 
-              <div class="form-group col-md-2">
-                <label>Phone no.</label>
-                <input formControlName="phone" type="text" class="form-control">
-              </div>
-
-              <div class="form-group col-md-2">
-                <label>Email</label>
-                <input formControlName="email" type="text" class="form-control">
-              </div>
-                <button type="submit" class="btn btn-success" (click)=openEdit(content,i) >continue</button>
-          </div>
-          </form>
-        </div>
-
-        <p>Caller Details</p>
-        <hr>
-        <div class="card-body">
-            <form [formGroup]="callerdetails">
-              <div class="form-group row">
-
-                <div class="form-group col-md-2">
-                  <label>Name</label>
-                  <input  formControlName="callername" type="text" class="form-control" placeholder="Caller Name">
+                  <div class="form-group col-md-2">
+                    <button type="submit" class="btn btn-info" *ngIf="!isActive" (click)=openEdit(content,i)>continue</button>
+                  </div>
                 </div>
+              </form>
+              <div>Caller Details</div>
+              <hr color="white">
+              <div class="card-body">
+                <form [formGroup]="callerdetails">
+                  <div class="form-group row">
 
-                <div class="form-group col-md-2">
-                  <label>Phone</label>
-                  <input formControlName="phoneno" type="text" class="form-control" placeholder="Phone no.">
-                </div>
+                    <div class="form-group col-md-2">
+                      <label>Name</label>
+                      <input  formControlName="callername" type="text" class="form-control" placeholder="Caller Name">
+                    </div>
 
-                <div class="form-group col-md-2">
-                  <label>Relationship to Patient</label>
-                  <mat-form-field>
-                      <!-- <mat-label>Select</mat-label> -->
-                      <mat-select >
-                        <mat-option>Select</mat-option>
-                        <mat-option value="option1">Child</mat-option>
-                        <mat-option value="option2">Parent</mat-option>
-                        <mat-option value="option3">Self</mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                    <div class="form-group col-md-2">
+                      <label>Phone</label>
+                      <input formControlName="phoneno" type="text" class="form-control" placeholder="Phone no.">
+                    </div>
 
-                </div>
-                <mat-checkbox>Call patient to book Appointments</mat-checkbox>
+                    <div class="form-group col-md-2">
+                      <label>Relationship to Patient</label>
+                      <mat-form-field>
+                        <!-- <mat-label>Select</mat-label> -->
+                        <mat-select >
+                          <mat-option>Select</mat-option>
+                          <mat-option value="option1">Child</mat-option>
+                          <mat-option value="option2">Parent</mat-option>
+                          <mat-option value="option3">Self</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
 
-                  <!-- <button type="submit" class="btn btn-success">Finish</button> -->
+                  <input type="checkbox" class="btn" ng-model="checkbox" (click)="onCheck()">Call patient to book Appointments
+                  &nbsp; &nbsp;
+
+
+                    <div class="form-group col-md-2">
+                      <button type="submit" class="btn btn-success" *ngIf="isActive" >Finish</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-            </form>
-
+          </div>
         </div>
       </div>
     </div>
+    </mat-tab>
+    <mat-tab label="Insurance">
+      <h1>Insurance</h1>
+    </mat-tab>
+    <mat-tab label="Appointments">
+      <h1>Appointments </h1>
+    </mat-tab>
+    <mat-tab label="Referral Source">
+      <h1>Referral Source </h1>
+    </mat-tab>
+    <mat-tab label="Documents">
+      <h1>Documents </h1>
+    </mat-tab>
+    <mat-tab label="Care Team">
+      <h1>Care Team </h1>
+    </mat-tab>
+    <mat-tab label="Appointment Memo">
+      <h1>Appointment Memo </h1>
+    </mat-tab>
+    </mat-tab-group>
+    </div>
 
 
+    <!-- End of 1st registration form -->
+
+<!-- 2nd registration form -->
 <ng-template #content let-modal>
   <!-- <div class="model-content" style="width:max-content"> -->
   <div class="modal-dialog modal-xl" class="modal-content">
@@ -279,3 +310,45 @@
   </div>
 
 </ng-template>
+<!-- End of sencond registration form -->
+
+
+<!-- display table of existing names -->
+<ng-template #content1 let-modal>
+    <!-- <div class="model-content" style="width:max-content"> -->
+    <div class="modal-dialog modal-xl" class="modal-content">
+      <!-- <div class="modal-content"> -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title">Existing episodes</h5>
+        <button type="button" class="close bg bg-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">Close</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div>
+          <table class="table">
+              <thead>
+                <tr>
+                <!-- <th>Sl.No</th> -->
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Phone</th>
+                <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of arr; let i=index">
+                  <td >{{item.firstname }}</td>
+                  <td  >{{item.lastname}}</td>
+                  <td  >{{item.phone}}</td>
+                  <td  >{{item.email}}</td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+  </ng-template>
+
+   <!-- end of display table of existing names -->

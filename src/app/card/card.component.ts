@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Patdetails } from './patdetails';
 
 @Component({
   selector: 'app-card',
@@ -17,8 +18,26 @@ export class CardComponent implements OnInit {
   contact: FormGroup;
   other: FormGroup;
 
+  isActive:Boolean=false;
+
   closeResult: string;
   constructor(private modalService: NgbModal, private fb: FormBuilder) { }
+
+  fisrtname:string='';
+  lastname:string='';
+  phone:string='';
+  email:string='';
+  arr:Patdetails[]=[
+    new Patdetails('ak','zz','12365','sdgvdv'),
+    new Patdetails('ak','zz','12365','sdgvdv'),
+    new Patdetails('aks','zz','12365','sdgvdv'),
+    new Patdetails('ak','zz','12365','sdgvdv'),
+    new Patdetails('bs','zz','12365','sdgvdv'),
+    new Patdetails('nm','zz','12365','sdgvdv'),
+    new Patdetails('re','zz','12365','sdgvdv'),
+    new Patdetails('yt','zz','12365','sdgvdv'),
+    new Patdetails('jh','zz','12365','sdgvdv')
+  ];
 
   ngOnInit() {
 
@@ -73,6 +92,14 @@ export class CardComponent implements OnInit {
     });
   }
 
+  openDisplay(content1, i) {
+    this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
   // modal
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -82,6 +109,11 @@ export class CardComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  onCheck()
+  {
+    this.isActive=true;
   }
 
   }
