@@ -86,35 +86,32 @@ export class CardComponent implements OnInit {
 
   }
 
-  openform(reg, content1) {
+  openform(reg, content1, i) {
 
     let pn = this.details.get('patientname').value;
     console.log(pn);
 
-    for (let i = 0; i < this.arr.length; i++) {
-      let pname = this.arr[i].patname;
-      console.log(this.arr.length);
-      console.log(pname);
-      if (pname === pn) {
-        console.log('pname');
-        this.modalService.open(content1, { size: 'xl' });
-
-      }
-      //  if(this.details.value.patientname.value === this.patname){
-      //     console.log('pname');
-      //     this.modalService.open(content1, { size: 'xl' });
-      //          }
-      else {
-        console.log(pn);
-
-        this.general.patchValue({
-          firstname: this.details.value.patientname
-        });
-
-        this.modalService.open(reg, { size: 'xl' });
-      }
+    // for (let i = 0; i < this.arr.length; i++) {
+    let pname = this.arr[i].patname;
+    console.log(this.arr.length);
+    console.log(pname);
+    if (this.details.value.patientname === this.arr && this.arr[0].patname) {
+      console.log('pname');
+      this.modalService.open(content1, { size: 'xl' });
     }
+
+    else {
+      console.log(pn);
+
+      this.general.patchValue({
+        firstname: this.details.value.patientname
+      });
+
+      this.modalService.open(reg, { size: 'xl' });
+    }
+    // }
   }
+
 
   onCheck() {
     this.isActive = true;
