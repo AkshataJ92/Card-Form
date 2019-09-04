@@ -10,6 +10,7 @@
           <div class="card text-white bg-secondary mb-3">
             <div class="card-header">Enter Patient Informartion</div>
             <div class="card-body">
+              <!-- patient's info -->
               <form [formGroup]="details">
                 <div class="form-group row">
 
@@ -20,7 +21,7 @@
 
                   <div class="form-group col-md-2">
                     <label>Patient DOB</label>
-                    <input type="date" name="bday">
+                    <input type="date" name="bday" formControlName="patientDOB">
                   </div>
 
                   <div class="form-group col-md-2">
@@ -34,7 +35,7 @@
                   </div>
 
                   <div class="form-group col-md-2">
-                    <button type="submit" class="btn btn-info" *ngIf="!isActive" (click)=openEdit(content,i)>continue</button>
+                    <button type="submit" class="btn btn-info" *ngIf="!isActive" (click)=openform(reg,content1)>continue</button>
                   </div>
                 </div>
               </form>
@@ -108,9 +109,9 @@
     <!-- End of 1st registration form -->
 
 <!-- 2nd registration form -->
-<ng-template #content let-modal>
+<ng-template #reg let-modal>
   <!-- <div class="model-content" style="width:max-content"> -->
-  <div class="modal-dialog modal-xl" class="modal-content">
+  <!-- <div class="modal-dialog modal-xl" class="modal-content"> -->
     <!-- <div class="modal-content"> -->
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">Patient Information</h5>
@@ -307,7 +308,7 @@
 
     </div>
 
-  </div>
+  <!-- </div> -->
 
 </ng-template>
 <!-- End of sencond registration form -->
@@ -316,7 +317,7 @@
 <!-- display table of existing names -->
 <ng-template #content1 let-modal>
     <!-- <div class="model-content" style="width:max-content"> -->
-    <div class="modal-dialog modal-xl" class="modal-content">
+    <!-- <div class="modal-dialog modal-xl" class="modal-content"> -->
       <!-- <div class="modal-content"> -->
       <div class="modal-header">
         <h5 class="modal-title" id="modal-basic-title">Existing episodes</h5>
@@ -339,7 +340,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of arr; let i=index">
-                  <td >{{item.firstname }}</td>
+                  <td >{{item.patname }}</td>
                   <td  >{{item.lastname}}</td>
                   <td  >{{item.phone}}</td>
                   <td  >{{item.email}}</td>
@@ -348,7 +349,7 @@
               </table>
             </div>
       </div>
-    </div>
+    <!-- </div> -->
   </ng-template>
 
    <!-- end of display table of existing names -->
