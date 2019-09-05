@@ -10,12 +10,16 @@ import {MatSelectModule} from '@angular/material/select';
 import { NavbarComponent } from './navbar/navbar.component';
 import { routing } from './app.routing';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { PhoneMaskDirective } from './card/phone-mask.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
-    NavbarComponent
+    NavbarComponent,
+    PhoneMaskDirective
+
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatCheckboxModule,
     MatSelectModule,
     routing,
-    MatTabsModule
+    MatTabsModule,
+    MatAutocompleteModule
   ],
 
   providers: [],

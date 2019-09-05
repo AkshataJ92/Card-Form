@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Patdetails } from './patdetails';
-import { Category } from './demo';
-import { INT_TYPE } from '@angular/compiler/src/output/output_ast';
+import { Observable } from 'rxjs';
+import {startWith, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-card',
@@ -18,10 +18,12 @@ export class CardComponent implements OnInit {
   address: FormGroup;
   contact: FormGroup;
   other: FormGroup;
-
   isActive: Boolean = false;
-
   closeResult: string;
+  control = new FormControl();
+  relations: string[] = ['Child', 'Parent', 'Self', 'Spouse','Aunt','Cousin','Former Spouse','Grandchild','Inlaw','Niece/Nephew'];
+  filteredRelation: Observable<string[]>;
+
   constructor(private modalService: NgbModal, private fb: FormBuilder) { }
 
   patname: string = '';
@@ -43,24 +45,24 @@ export class CardComponent implements OnInit {
 
   ngOnInit() {
 
-    this.details = this.fb.group({
-      patientname: new FormControl(null),
-      patientDOB: new FormControl(null),
-      phone: new FormControl(null),
-      email: new FormControl(null)
+    this.details=this.fb.group({
+      patientname:new FormControl(null,Validators.required),
+      patientDOB:new FormControl(null),
+      phone:new FormControl('',[Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)]),
+      email:new FormControl(null,[Validators.required,Validators.email])
     });
 
-    this.callerdetails = this.fb.group({
-      callername: new FormControl(null),
-      phoneno: new FormControl(null)
+    this.callerdetails=this.fb.group({
+      callername:new FormControl(null,Validators.required),
+      phoneno:new FormControl('',[Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/),Validators.required])
     });
 
-    this.general = this.fb.group({
-      firstname: new FormControl(null),
-      middlename: new FormControl(null),
-      lastname: new FormControl(null),
-      dob: new FormControl(null),
-      gender: new FormControl(null)
+    this.general=this.fb.group({
+      firstname:new FormControl(null,Validators.required),
+      middlename:new FormControl(null),
+      lastname:new FormControl(null,Validators.required),
+      dob:new FormControl(null),
+      gender: new FormControl(null,Validators.required)
     });
 
     this.address = this.fb.group({
@@ -71,18 +73,23 @@ export class CardComponent implements OnInit {
       state: new FormControl(null)
     });
 
-    this.contact = this.fb.group({
-      home: new FormControl(null),
-      cell: new FormControl(null),
-      workphone: new FormControl(null),
-      email: new FormControl(null),
-      mode: new FormControl(null)
+    this.contact=this.fb.group({
+      home:new FormControl('',[Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)]),
+      cell:new FormControl('',[Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)]),
+      workphone:new FormControl('',[Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/)]),
+      email:new FormControl(null,[Validators.required,Validators.email]),
+      mode:new FormControl(null)
     });
 
     this.other = this.fb.group({
       ssn: new FormControl(null),
       language: new FormControl(null)
     });
+
+    this.filteredRelation = this.control.valueChanges.pipe(
+      startWith(''),
+  map(value => this._filter(value))
+    );
 
   }
 
@@ -91,30 +98,48 @@ export class CardComponent implements OnInit {
     let pn = this.details.get('patientname').value;
     console.log(pn);
 
-    // for (let i = 0; i < this.arr.length; i++) {
-    let pname = this.arr[i].patname;
-    console.log(this.arr.length);
-    console.log(pname);
-    if (this.details.value.patientname === this.arr && this.arr[0].patname) {
-      console.log('pname');
-      this.modalService.open(content1, { size: 'xl' });
+    for (let i = 0; i < this.arr.length; i--) {
+      let pname = this.arr[i].patname;
+      console.log(this.arr.length);
+      console.log(pname);
+      if (pname === pn) {
+        console.log('pname');
+        this.modalService.open(content1, { size: 'xl' });
+
+      }
+      //  if(this.details.value.patientname.value === this.patname){
+      //     console.log('pname');
+      //     this.modalService.open(content1, { size: 'xl' });
+      //          }
+      else {
+        console.log(pn);
+
+        this.general.patchValue({
+          firstname: this.details.value.patientname
+        });
+
+        this.modalService.open(reg, { size: 'xl' });
+      }
     }
-
-    else {
-      console.log(pn);
-
-      this.general.patchValue({
-        firstname: this.details.value.patientname
-      });
-
-      this.modalService.open(reg, { size: 'xl' });
-    }
-    // }
   }
 
+  private _filter(value: string): string[] {
+    const filterValue = this._normalizeValue(value);
+    return this.relations.filter(relation => this._normalizeValue(relation).includes(filterValue));
+  }
 
-  onCheck() {
-    this.isActive = true;
+  private _normalizeValue(value: string): string {
+    return value.toLowerCase().replace(/\s/g, '');
+  }
+
+  checked:boolean = false;
+
+  addprop1(e){
+    if(e.target.checked){
+      this.checked = true;
+    }else{
+      this.checked = false;
+    }
   }
 
 }
